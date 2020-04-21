@@ -1,11 +1,11 @@
 {
   "build": {
     "env": {
-      "AUTH0_DOMAIN": "YOUR_AUTH0_DOMAIN",
-      "AUTH0_CLIENT_ID": "YOUR_AUTH0_CLIENT_ID",
+      "AUTH0_DOMAIN": "samuelotterman-dev.auth0.com",
+      "AUTH0_CLIENT_ID": "9ehMXu1R5ip094TSG1R6s1wv27zLHIHY",
       "AUTH0_CLIENT_SECRET": "@auth0_client_secret",
-      "REDIRECT_URI": "https://my-website.now.sh/api/callback",
-      "POST_LOGOUT_REDIRECT_URI": "https://my-website.now.sh/",
+      "REDIRECT_URI": "https://rep-tracker.now.sh/api/callback",
+      "POST_LOGOUT_REDIRECT_URI": "https://rep-tracker.now.sh/",
       "SESSION_COOKIE_SECRET": "@session_cookie_secret"
     }
   }
