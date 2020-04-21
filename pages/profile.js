@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
 // This import is only needed when checking authentication status directly from getInitialProps
 // import auth0 from '../lib/auth0'
-import { useFetchUser } from '../lib/user'
-import Layout from '../components/layout'
+import { useFetchUser } from "../lib/user";
+import Layout from "../components/layout";
 
 function ProfileCard({ user }) {
   return (
@@ -17,17 +17,17 @@ function ProfileCard({ user }) {
         <p>name: {user.name}</p>
       </div>
     </>
-  )
+  );
 }
 
 function Profile() {
-  const { user, loading } = useFetchUser({ required: true })
+  const { user, loading } = useFetchUser({ required: true });
 
   return (
     <Layout user={user} loading={loading}>
       {loading ? <>Loading...</> : <ProfileCard user={user} />}
     </Layout>
-  )
+  );
 }
 
-export default Profile
+export default Profile;
