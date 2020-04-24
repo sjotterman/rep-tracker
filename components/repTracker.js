@@ -4,7 +4,17 @@ import { useFetchUserData } from "../lib/userData";
 import { List, Button, Grid, GridColumn, Input, Feed } from "semantic-ui-react";
 
 const RepTracker = ({ user }) => {
-  const { userData, loading: userDataLoading } = useFetchUserData();
+  //   const { userData, loading: userDataLoading } = useFetchUserData();
+  const dummySets = [
+    { exercise: "Push-ups", exerciseId: 2, reps: 1 },
+    { exercise: "Push-ups", exerciseId: 2, reps: 1 },
+  ];
+  // TODO: log sets to database
+  const [sets, setSets] = useState(dummySets);
+  const appendSet = (set) => {
+    setSets([...sets, set]);
+  };
+  // TODO: remove set
   const dummyExercises = [
     { id: 1, name: "Pull ups", reps: 1 },
     { id: 2, name: "Push-ups", reps: 1 },
@@ -31,7 +41,7 @@ const RepTracker = ({ user }) => {
       <p>{user.name}</p>
       <h4>Recent Reps</h4>
       <Feed>
-        {userData?.sets.map((set, index) => {
+        {sets.map((set, index) => {
           return (
             <Feed.Event
               key={index}
@@ -80,7 +90,17 @@ const RepTracker = ({ user }) => {
                   ></Input>
                 </Grid.Column>
                 <Grid.Column width={1}>
-                  <Button>Log</Button>
+                  <Button
+                    onClick={() => {
+                      appendSet({
+                        exercise: exercise.name,
+                        exerciseId: exercise.id,
+                        reps: exercise.reps,
+                      });
+                    }}
+                  >
+                    Log
+                  </Button>
                 </Grid.Column>
               </Grid.Row>
             );
