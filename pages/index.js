@@ -2,14 +2,14 @@ import React from "react";
 
 import Layout from "../components/layout";
 import { useFetchUser } from "../lib/user";
+import RepTracker from "../components/repTracker";
 
 function Home() {
   const { user, loading } = useFetchUser();
+  // const userData = await fetchUserData();
 
   return (
     <Layout user={user} loading={loading}>
-      <h1>Next.js and Auth0 Example</h1>
-
       {loading && <p>Loading login info...</p>}
 
       {!loading && !user && (
@@ -24,13 +24,7 @@ function Home() {
         </>
       )}
 
-      {user && (
-        <>
-          <h4>Rendered user info on the client</h4>
-          <p>nickname: {user.nickname}</p>
-          <p>name: {user.name}</p>
-        </>
-      )}
+      {user && <RepTracker user={user}></RepTracker>}
     </Layout>
   );
 }
