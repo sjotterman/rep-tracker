@@ -3,15 +3,32 @@ import { useState } from "react";
 import { useFetchUserData } from "../lib/userData";
 import { List, Button, Grid, GridColumn, Input, Feed } from "semantic-ui-react";
 
-const RepTracker = ({ user }) => {
+interface User {
+  name: string;
+  // TODO: add more attributes and refactor to shared file
+}
+
+interface Set {
+  exerciseId: number;
+  reps: number;
+  exercise: string;
+  // Todo: probably should remove "Exercise", since we have the id
+}
+
+interface RepTrackerProps {
+  user: User;
+}
+
+const RepTracker: React.FC<RepTrackerProps> = ({ user }) => {
   //   const { userData, loading: userDataLoading } = useFetchUserData();
   const dummySets = [
     { exercise: "Push-ups", exerciseId: 2, reps: 1 },
     { exercise: "Push-ups", exerciseId: 2, reps: 1 },
   ];
+
   // TODO: log sets to database
   const [sets, setSets] = useState(dummySets);
-  const appendSet = (set) => {
+  const appendSet = (set: Set) => {
     setSets([...sets, set]);
   };
   // TODO: remove set
@@ -22,7 +39,7 @@ const RepTracker = ({ user }) => {
   ];
   const [exercises, setExercises] = useState(dummyExercises);
 
-  const updateReps = (exerciseId, reps) => {
+  const updateReps = (exerciseId: number, reps: number) => {
     console.log({ exerciseId, reps });
     // TODO: Extract this logic from component
     // Possibly to useReducer
@@ -62,7 +79,10 @@ const RepTracker = ({ user }) => {
                 <GridColumn width={2}>
                   <Button
                     onClick={() =>
-                      updateReps(exercise.id, parseInt(exercise.reps) - 1)
+                      updateReps(
+                        exercise.id,
+                        parseInt(exercise.reps.toString()) - 1
+                      )
                     }
                   >
                     -
@@ -71,7 +91,10 @@ const RepTracker = ({ user }) => {
                 <Grid.Column width={2}>
                   <Button
                     onClick={() =>
-                      updateReps(exercise.id, parseInt(exercise.reps) + 1)
+                      updateReps(
+                        exercise.id,
+                        parseInt(exercise.reps.toString()) + 1
+                      )
                     }
                   >
                     +
@@ -85,7 +108,7 @@ const RepTracker = ({ user }) => {
                     type="number"
                     onChange={(e) => {
                       console.log(e.target.value);
-                      updateReps(exercise.id, e.target.value);
+                      updateReps(exercise.id, parseInt(e.target.value));
                     }}
                   ></Input>
                 </Grid.Column>
