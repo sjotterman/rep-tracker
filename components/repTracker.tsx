@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { useFetchUserData } from "../lib/userData";
-import { List, Button, Grid, GridColumn, Input, Feed } from "semantic-ui-react";
+// import { useFetchUserData } from "../lib/userData";
+import { Button, Grid, GridColumn, Input, Feed } from "semantic-ui-react";
 
 interface User {
   name: string;
