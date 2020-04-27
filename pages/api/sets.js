@@ -18,12 +18,11 @@ export default async function sets(req, res) {
         set = await Set.create(req.body);
         res.status(201).json({ success: true, data: { set } });
       } catch (error) {
-        res.status(400).json({ success: false });
+        console.log(error);
+        res.status(400).json({ success: false, error });
       }
       break;
     default:
       res.status(400).json({ success: false });
   }
-
-  res.json({ success: true, data: { sets } });
 }

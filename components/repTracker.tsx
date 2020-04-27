@@ -21,6 +21,7 @@ interface Set {
   exerciseId: string;
   reps: number;
   exercise: string;
+  createdAt?: string;
   // TODO: add time completed
   // Todo: probably should remove "Exercise", since we have the id
 }
@@ -96,12 +97,13 @@ const RepTracker: React.FC<RepTrackerProps> = ({ user }) => {
       <p>{user.name}</p>
       <h4>Recent Reps</h4>
       <Feed>
-        {setsInLog.map((set: Set, index) => {
+        {setsInLog.slice(setsInLog.length - 5).map((set: Set, index) => {
+          const setDate: Date = new Date(set.createdAt ?? "");
           return (
             <Feed.Event
               key={index}
               icon="check"
-              date="today"
+              date={`${setDate.toDateString()} ${setDate.getHours()}:${setDate.getMinutes()}`}
               summary={`You did ${set.reps} ${set.exercise}`}
             />
           );

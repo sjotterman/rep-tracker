@@ -18,6 +18,7 @@ const SetSchema = new mongoose.Schema({
     type: Number,
     required: [true, "reps is required"],
   },
+  createdAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.models.Set || mongoose.model("Set", SetSchema);
