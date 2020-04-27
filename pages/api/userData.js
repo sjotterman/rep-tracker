@@ -10,16 +10,12 @@ import auth0 from "../../lib/auth0";
 // https://github.com/auth0/nextjs-auth0
 export default async function userData(req, res) {
   try {
-    // console.log(req.cookies);
     // await auth0.handleProfile(req, res);
     const { user } = await auth0.getSession(req);
-    console.log(user);
     if (!user) {
       res.send({});
       return;
     }
-    const auth_user_id = user.sub;
-    console.log(auth_user_id);
     const sets = [
       { exercise: "push-ups", reps: 3 },
       { exercise: "pull-ups", reps: 5 },

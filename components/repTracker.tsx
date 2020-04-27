@@ -66,7 +66,6 @@ const RepTracker: React.FC<RepTrackerProps> = ({ user }) => {
 
   async function addSetForUser(set: Set) {
     const { data: postResponseData } = await post("/api/sets", set);
-    console.log({ postResponseData });
     const { set: newSet } = postResponseData;
     // TODO: set actual returned sets
     const newSets: Set[] = [...setsInLog, newSet];
@@ -75,7 +74,6 @@ const RepTracker: React.FC<RepTrackerProps> = ({ user }) => {
   }
 
   const updateReps = (exerciseId: string, reps: number) => {
-    console.log({ exerciseId, reps });
     // TODO: Extract this logic from component
     // Possibly to useReducer
     setDisplayExercises(
@@ -147,7 +145,6 @@ const RepTracker: React.FC<RepTrackerProps> = ({ user }) => {
                     value={exercise.reps}
                     type="number"
                     onChange={(e) => {
-                      console.log(e.target.value);
                       updateReps(exercise._id, parseInt(e.target.value));
                     }}
                   ></Input>
