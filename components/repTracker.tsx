@@ -17,6 +17,7 @@ interface Exercise {
 }
 
 interface Set {
+  _id?: string;
   userId: string;
   exerciseId: string;
   reps: number;
@@ -35,7 +36,7 @@ const RepTracker: React.FC<RepTrackerProps> = ({ user }) => {
   const emptyExercises: Exercise[] = [];
   const [displayExercises, setDisplayExercises] = useState(emptyExercises);
   // TODO: remove set
-  const { get, post, loading, error } = useFetch(
+  const { get, post, del, loading, error } = useFetch(
     //TODO: remove hardcoded url
     "http://localhost:3000",
     {}
@@ -73,6 +74,21 @@ const RepTracker: React.FC<RepTrackerProps> = ({ user }) => {
     setSetsInLog(newSets);
   }
 
+  async function deleteSet(setId: string) {
+    const { error } = await del(`/api/sets/${setId}`);
+    // TODO: refactor so I don't use two API calls
+    if (error) {
+      console.log(error);
+      return;
+    }
+    const { data } = await get("/api/sets");
+    console.log({ data });
+    if (!error) {
+      const { sets: initialSets } = data;
+      setSetsInLog(initialSets);
+    }
+  }
+
   const updateReps = (exerciseId: string, reps: number) => {
     // TODO: Extract this logic from component
     // Possibly to useReducer
@@ -98,12 +114,24 @@ const RepTracker: React.FC<RepTrackerProps> = ({ user }) => {
         {setsInLog.slice(setsInLog.length - 5).map((set: Set, index) => {
           const setDate: Date = new Date(set.createdAt ?? "");
           return (
-            <Feed.Event
-              key={index}
-              icon="check"
-              date={`${setDate.toDateString()} ${setDate.getHours()}:${setDate.getMinutes()}`}
-              summary={`You did ${set.reps} ${set.exercise}`}
-            />
+            <Feed.Event key={index}>
+              <Feed.Label icon="check" />
+              <Feed.Summary>
+                <Feed.Date>
+                  {`${setDate.toDateString()} ${setDate.getHours()}:${setDate.getMinutes()}`}
+                </Feed.Date>
+                {`You did ${set.reps} ${set.exercise}`}
+              </Feed.Summary>
+              <Button
+                onClick={() => {
+                  console.log(`clicked delete on ${set._id}`);
+                  // FIX: this function call
+                  deleteSet(set._id ?? "");
+                }}
+              >
+                X
+              </Button>
+            </Feed.Event>
           );
         })}
       </Feed>

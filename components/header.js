@@ -7,7 +7,7 @@ function Header({ user, loading }) {
         <ul>
           <li>
             <Link href="/">
-              <a>Home</a>
+              <a id="home-link">Home</a>
             </Link>
           </li>
           {!loading &&
@@ -15,7 +15,7 @@ function Header({ user, loading }) {
               <>
                 <li>
                   <Link href="/profile">
-                    <a>Profile</a>
+                    <a id="profile-link">Profile</a>
                   </Link>
                 </li>
                 {/* <li>
@@ -24,12 +24,16 @@ function Header({ user, loading }) {
                   </Link>
                 </li> */}
                 <li>
-                  <a href="/api/logout">Logout</a>
+                  <a id="logout-link" href="/api/logout">
+                    Logout
+                  </a>
                 </li>
               </>
             ) : (
               <li>
-                <a href="/api/login">Login</a>
+                <a id="login-link" href="/api/login">
+                  Login
+                </a>
               </li>
             ))}
         </ul>
