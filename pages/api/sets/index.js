@@ -1,5 +1,5 @@
-import dbConnect from "../../utils/dbConnect";
-import Set from "../../models/set";
+import dbConnect from "../../../utils/dbConnect";
+import Set from "../../../models/set";
 
 dbConnect();
 
@@ -20,6 +20,16 @@ export default async function sets(req, res) {
       } catch (error) {
         res.status(400).json({ success: false, error });
       }
+      break;
+    case "DELETE":
+      try {
+        await Set.findOneAndDelete({ _id: req.body._id });
+        res.status(201).json({ success: true, data: { set } });
+      } catch (error) {
+        res.status(400).json({ success: false, error });
+        console.log(error);
+      }
+
       break;
     default:
       res.status(400).json({ success: false });
