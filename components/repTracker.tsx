@@ -5,6 +5,7 @@ import { Button, Grid, GridColumn, Input, Feed } from "semantic-ui-react";
 import type { User, Set, Exercise } from "../types";
 import { addSet, deleteSet } from "../redux/actions/setsActions";
 import { setRepCount } from "../redux/actions/exerciseActions";
+import RecentReps from "./recentReps";
 
 interface RepTrackerProps {
   user: User;
@@ -24,30 +25,7 @@ const RepTracker: React.FC<RepTrackerProps> = ({ user }) => {
     <div>
       <p>{user.name}</p>
       <h4>Recent Reps</h4>
-      <Feed>
-        {sets.map((set: Set, index: number) => {
-          const setDate: Date = new Date(set.createdAt ?? "");
-          return (
-            <Feed.Event key={index}>
-              <Feed.Label icon="check" />
-              <Feed.Summary>
-                <Feed.Date>
-                  {`${setDate.toDateString()} ${setDate.getHours()}:${setDate.getMinutes()}`}
-                </Feed.Date>
-                {`You did ${set.reps} ${set.exercise}`}
-              </Feed.Summary>
-              <Button
-                onClick={() => {
-                  console.log(`clicked delete on ${set._id}`);
-                  dispatch(deleteSet(set._id));
-                }}
-              >
-                X
-              </Button>
-            </Feed.Event>
-          );
-        })}
-      </Feed>
+      <RecentReps sets={sets} />
       <div>
         <h3>Log exercise</h3>
         <Grid columns="12">
