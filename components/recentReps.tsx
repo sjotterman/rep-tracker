@@ -2,7 +2,7 @@ import React from "react";
 import { Set } from "../types";
 import { Button, Feed } from "semantic-ui-react";
 import { useDispatch } from "react-redux";
-import { addSet, deleteSet } from "../redux/actions/setsActions";
+import { deleteSet } from "../redux/actions/setsActions";
 
 interface RecentRepsProps {
   sets: Set[];

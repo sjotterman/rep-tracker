@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { useState } from "react";
-import { Button, Grid, GridColumn, Input, Feed } from "semantic-ui-react";
+import { Button, Grid, GridColumn, Input } from "semantic-ui-react";
 import type { User, Set, Exercise } from "../types";
-import { addSet, deleteSet } from "../redux/actions/setsActions";
+import { addSet } from "../redux/actions/setsActions";
 import { setRepCount } from "../redux/actions/exerciseActions";
 import RecentReps from "./recentReps";
 
