@@ -1,21 +1,8 @@
 // import { ADD_SET, DELETE_SET } from "../actions/setsActions";
 import { Exercise } from "../../types";
-import { SET_REP_COUNT } from "../actions/exerciseActions";
+import { SET_REP_COUNT, GET_EXERCISES } from "../actions/exerciseActions";
 
-const initialState: Exercise[] = [
-  {
-    _id: "1",
-    name: "pull-ups",
-    description: "pull-ups",
-    reps: 1,
-  },
-  {
-    _id: "2",
-    name: "push-ups",
-    description: "push-ups",
-    reps: 1,
-  },
-];
+const initialState: Exercise[] = [];
 
 // remove the "any" later
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -32,6 +19,10 @@ const exercisesReducer = (state = initialState, action: any) => {
         }
         return exercise;
       });
+    }
+    case GET_EXERCISES: {
+      const { exercises } = action.payload;
+      return [...exercises];
     }
     default:
       return [...state];
