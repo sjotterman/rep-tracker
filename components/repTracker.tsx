@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { useState } from "react";
 import { Button, Grid, GridColumn, Input } from "semantic-ui-react";
 import type { User, Set, Exercise } from "../types";
 import { addSet } from "../redux/actions/setsActions";
@@ -12,7 +11,8 @@ interface RepTrackerProps {
 }
 
 const RepTracker: React.FC<RepTrackerProps> = ({ user }) => {
-  const loading = false; // remove later
+  // TODO: fix loading status, probably with redux
+  const loading = false;
   const sets: Set[] = useSelector((state: any) => state.sets);
   const exercises: Exercise[] = useSelector((state: any) => state.exercises);
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const RepTracker: React.FC<RepTrackerProps> = ({ user }) => {
   if (loading) {
     return <div>Loading...</div>;
   }
-  // TODO: refactor out this component
+  //TODO: refactor out rep add widget
   return (
     <div>
       <p>{user.name}</p>

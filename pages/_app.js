@@ -3,7 +3,7 @@ import App from "next/app";
 import { Provider } from "react-redux";
 import React from "react";
 import withRedux from "next-redux-wrapper";
-import store from "../redux/store";
+import makeStore from "../redux/store";
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -28,7 +28,6 @@ class MyApp extends App {
 }
 
 //makeStore function that returns a new store for every request
-const makeStore = () => store;
 
 //withRedux wrapper that passes the store to the App Component
 export default withRedux(makeStore)(MyApp);

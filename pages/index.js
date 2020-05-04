@@ -3,10 +3,10 @@ import React from "react";
 import Layout from "../components/layout";
 import { useFetchUser } from "../lib/user";
 import RepTracker from "../components/repTracker";
+import { getExercises } from "../redux/actions/exerciseActions";
 
 function Home() {
   const { user, loading } = useFetchUser();
-  // const userData = await fetchUserData();
 
   return (
     <Layout user={user} loading={loading}>
@@ -28,5 +28,9 @@ function Home() {
     </Layout>
   );
 }
+
+Home.getInitialProps = async ({ store }) => {
+  await store.dispatch(getExercises());
+};
 
 export default Home;
