@@ -1,16 +1,7 @@
-import { ADD_SET, DELETE_SET } from "../actions/setsActions";
+import { ADD_SET, DELETE_SET, GET_SETS } from "../actions/setsActions";
 import { Set } from "../../types";
 
-const initialState: Set[] = [
-  {
-    _id: "fdssd",
-    userId: "fdsfsd",
-    exerciseId: "1",
-    reps: 77,
-    exercise: "push-ups",
-    createdAt: "2020-05-01T11:12:30.0000Z",
-  },
-];
+const initialState: Set[] = [];
 
 const setsReducer = (state = initialState, action: any) => {
   switch (action.type) {
@@ -25,6 +16,10 @@ const setsReducer = (state = initialState, action: any) => {
         createdAt: "2020-05-01T11:12:30.0000Z",
       };
       return [...state, newSet];
+    }
+    case GET_SETS: {
+      const { sets } = action.payload;
+      return [...sets];
     }
     case DELETE_SET: {
       const { id } = action.payload;

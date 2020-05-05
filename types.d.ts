@@ -12,7 +12,7 @@ export interface Exercise {
 }
 
 export interface Set {
-  _id?: string;
+  _id: string;
   userId: string;
   exerciseId: string;
   reps: number;

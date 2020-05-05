@@ -4,6 +4,7 @@ import Layout from "../components/layout";
 import { useFetchUser } from "../lib/user";
 import RepTracker from "../components/repTracker";
 import { getExercises } from "../redux/actions/exerciseActions";
+import { getSets } from "../redux/actions/setsActions";
 
 function Home() {
   const { user, loading } = useFetchUser();
@@ -31,6 +32,7 @@ function Home() {
 
 Home.getInitialProps = async ({ store }) => {
   await store.dispatch(getExercises());
+  await store.dispatch(getSets());
 };
 
 export default Home;
