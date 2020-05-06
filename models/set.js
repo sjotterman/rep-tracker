@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const SetSchema = new mongoose.Schema({
-  _id: String,
   userId: {
     type: String,
     required: [true, "userId is required"],

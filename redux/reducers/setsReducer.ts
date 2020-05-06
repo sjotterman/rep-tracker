@@ -6,19 +6,12 @@ const initialState: Set[] = [];
 const setsReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case ADD_SET: {
-      const { exerciseId, userId, reps, exercise } = action.payload;
-      const newSet: Set = {
-        _id: Date.now().toString(),
-        userId,
-        exerciseId,
-        reps,
-        exercise,
-        createdAt: "2020-05-01T11:12:30.0000Z",
-      };
-      return [...state, newSet];
+      const { set } = action.payload;
+      return [...state, set];
     }
     case GET_SETS: {
       const { sets } = action.payload;
+      console.log({ sets });
       return [...sets];
     }
     case DELETE_SET: {

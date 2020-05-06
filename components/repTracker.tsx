@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Grid, GridColumn, Input } from "semantic-ui-react";
 import type { User, Set, Exercise } from "../types";
-import { addSet } from "../redux/actions/setsActions";
+import { addSet, getSets } from "../redux/actions/setsActions";
 import { setRepCount } from "../redux/actions/exerciseActions";
 import RecentReps from "./recentReps";
 
@@ -16,7 +16,11 @@ const RepTracker: React.FC<RepTrackerProps> = ({ user }) => {
   const sets: Set[] = useSelector((state: any) => state.sets);
   const exercises: Exercise[] = useSelector((state: any) => state.exercises);
   const dispatch = useDispatch();
-  // TODO: remove set
+  // TODO: Try to figure out how to call this in getInitialProps
+  // currently not working because we can't get auth server side
+  useEffect(() => {
+    dispatch(getSets());
+  }, [user]);
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -68,12 +72,7 @@ const RepTracker: React.FC<RepTrackerProps> = ({ user }) => {
                   <Button
                     onClick={() => {
                       dispatch(
-                        addSet(
-                          "fdsfsd",
-                          exercise._id,
-                          exercise.name,
-                          exercise.reps
-                        )
+                        addSet(exercise._id, exercise.name, exercise.reps)
                       );
                     }}
                   >

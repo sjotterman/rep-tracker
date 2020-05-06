@@ -1,4 +1,5 @@
 //Action Types
+import fetch from "isomorphic-unfetch";
 export const ADD_SET = "ADD_SET";
 export const DELETE_SET = "DELETE_SET";
 export const GET_SETS = "GET_SETS";
@@ -9,11 +10,10 @@ export const getSets = () => async (dispatch: Function) => {
   const response = await fetch("http://localhost:3000/api/sets");
   if (!response.ok) {
     console.log("Error getting sets");
-    console.log(await response.json());
+    return;
   }
   const json = await response.json();
   const { sets } = json.data;
-  console.log({ sets });
   dispatch({
     type: GET_SETS,
     payload: {
@@ -25,21 +25,31 @@ export const getSets = () => async (dispatch: Function) => {
 //Action Creator
 //TODO: reduce number of parameters?
 export const addSet = (
-  userId: string,
   exerciseId: string,
   exercise: string,
   reps: number
-) => {
-  return {
+) => async (dispatch: Function) => {
+  console.log("addSet()");
+  const createSet = {
+    exerciseId,
+    exercise,
+    reps,
+  };
+  const response = await fetch("http://localhost:3000/api/sets", {
+    method: "POST",
+    body: JSON.stringify(createSet),
+  });
+  if (!response) {
+    console.log("Error adding sets");
+    return;
+  }
+  let set: any;
+  dispatch({
     type: ADD_SET,
     payload: {
-      userId,
-      exerciseId,
-      //todo: get rid of exercise
-      exercise,
-      reps,
+      set,
     },
-  };
+  });
 };
 
 export const deleteSet = (id: string) => ({

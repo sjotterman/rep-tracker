@@ -1,13 +1,18 @@
 import dbConnect from "../../../utils/dbConnect";
+import auth0 from "../../../lib/auth0";
 import Set from "../../../models/set";
+import { NextApiRequest, NextApiResponse } from "next";
 
 dbConnect();
 
-export default async function sets(req, res) {
+export default auth0.requireAuthentication(async function sets(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { method } = req;
   let sets;
   let set;
-  //TODO: limit to only sets for logged in user
+
   switch (method) {
     case "GET":
       sets = await Set.find({});
@@ -15,7 +20,7 @@ export default async function sets(req, res) {
       break;
     case "POST":
       try {
-        set = await Set.create(req.body);
+        let set = await Set.create(req.body);
         res.status(201).json({ success: true, data: { set } });
       } catch (error) {
         res.status(400).json({ success: false, error });
@@ -34,4 +39,4 @@ export default async function sets(req, res) {
     default:
       res.status(400).json({ success: false });
   }
-}
+});
