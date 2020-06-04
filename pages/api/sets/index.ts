@@ -12,7 +12,7 @@ export default auth0.requireAuthentication(async function sets(
   const { method } = req;
   let sets;
   let set;
-
+  const session = await auth0.getSession(req);
   switch (method) {
     case "GET":
       sets = await Set.find({});
@@ -20,9 +20,20 @@ export default auth0.requireAuthentication(async function sets(
       break;
     case "POST":
       try {
-        let set = await Set.create(req.body);
+        const userId = session.user.sub;
+        const { exerciseId, reps, exercise } = req.body;
+        const newSet = {
+          userId,
+          reps,
+          exercise: {
+            _id: exerciseId,
+            name: exercise,
+          },
+        };
+        let set = await Set.create(newSet);
         res.status(201).json({ success: true, data: { set } });
       } catch (error) {
+        console.log({ error });
         res.status(400).json({ success: false, error });
       }
       break;

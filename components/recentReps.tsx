@@ -22,7 +22,7 @@ const RecentReps: React.FC<RecentRepsProps> = ({ sets }) => {
               <Feed.Date>
                 {`${setDate.toDateString()} ${setDate.getHours()}:${setDate.getMinutes()}`}
               </Feed.Date>
-              {`You did ${set.reps} ${set.exercise}`}
+              {`You did ${set.reps} ${set.exercise.name}`}
             </Feed.Summary>
             <Button
               onClick={() => {

@@ -14,10 +14,13 @@ export interface Exercise {
 export interface Set {
   _id: string;
   userId: string;
-  exerciseId: string;
+  exercise: {
+    _id: string;
+    name: string;
+  };
   reps: number;
   exercise: string;
-  createdAt?: string;
+  createdAt: string;
   // TODO: add time completed
   // Todo: probably should remove "Exercise", since we have the id
 }
