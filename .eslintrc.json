@@ -27,6 +27,7 @@
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "no-unused-vars": "off",
+    "no-warning-comments": "warn",
     "@typescript-eslint/no-unused-vars": ["error"]
   }
 }
